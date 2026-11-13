@@ -37,9 +37,9 @@ Records are saved to `data/prices.json` after every change and loaded at start.
 | File | What it contains |
 |------|------------------|
 | `main.py` | The window; puts the two screens together |
-| `models.py` | `PriceRecord` and `Basket` classes, the `ITEMS` dictionary and the `MARKETS` tuple |
-| `validation.py` | Input checks for date, item, bazaar, price and quantity |
-| `storage.py` | Save and load the records as JSON |
+| `models.py` | `PriceRecord` and `Basket` classes, the `UNITS` and `CATEGORIES` tuples |
+| `validation.py` | Input checks: required text, price, quantity, date, fixed choices, unique record ID |
+| `storage.py` | Save and load price records and baskets as JSON |
 | `manager.py` | `BazaarManager`: add, search, update and delete records |
 | `analysis.py` | NumPy calculations: cheapest bazaar per item, basket totals, cost at each bazaar |
 | `gui_records.py` | The Price Records screen |
@@ -48,6 +48,7 @@ Records are saved to `data/prices.json` after every change and loaded at start.
 
 ## Sample data
 
-`data/prices.json` holds 50 **sample** records: all 8 items at all 5 Dhaka bazaars on
+`data/prices.json` holds 50 **sample** records (R001 to R050), each with an ID, item, bazaar,
+price, unit, category and date: all 8 items at all 5 Dhaka bazaars on
 15 October 2026, plus 5 items at 2 bazaars a week earlier. The prices are realistic
 examples for demonstration, not official prices.
