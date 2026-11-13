@@ -8,9 +8,9 @@ CSC 4162 Programming in Python, Section C, Fall 2026-27, mid-term group project.
 
 | Member | Student ID | Name | Files | Branch |
 |--------|------------|------|-------|--------|
-| 1 | | | `models.py`, `validation.py`, `storage.py` | `feature/models-storage` |
-| 2 | | | `manager.py`, `analysis.py` | `feature/manager` |
-| 3 | | | `gui_records.py`, `main.py` | `feature/gui-records` |
+| 1 | 22-48109-2 | Fahima Tajmoon Tafree | `models.py`, `validation.py`, `storage.py` | `feature/models-storage` |
+| 2 | 23-55575-3 | MD. Arif Iqbal Saikat | `manager.py`, `analysis.py` | `feature/manager` |
+| 3 | 23-50219-1 | Suheli Nasrin | `gui_records.py`, `main.py` | `feature/gui-records` |
 | 4 | 21-44625-1 | Minhazul Abedin | `gui_basket.py`, `data/prices.json`, `README.md` | `feature/gui-basket` |
 
 ## How to run
