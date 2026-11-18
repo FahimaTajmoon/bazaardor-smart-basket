@@ -1,5 +1,3 @@
-
-
 import json
 import os
 
@@ -11,12 +9,12 @@ BASKETS_FILE = os.path.join(DATA_FOLDER, "baskets.json")
 
 
 def read_json(path):
-    
+
     try:
         with open(path, "r", encoding="utf-8") as file:
             data = json.load(file)
     except FileNotFoundError:
-        return []        # first run: the file does not exist yet
+        return []
     except (ValueError, OSError):
         print(f"Warning: could not read {path}. Starting with empty data.")
         return []
@@ -39,7 +37,7 @@ def write_json(path, data):
 
 
 def load_records(path=PRICES_FILE):
-   
+
     records = []
     for row in read_json(path):
         try:
@@ -50,12 +48,12 @@ def load_records(path=PRICES_FILE):
 
 
 def save_records(records, path=PRICES_FILE):
-    
+
     return write_json(path, [record.to_dict() for record in records])
 
 
 def load_baskets(path=BASKETS_FILE):
-   
+
     baskets = []
     for row in read_json(path):
         try:
@@ -66,5 +64,5 @@ def load_baskets(path=BASKETS_FILE):
 
 
 def save_baskets(baskets, path=BASKETS_FILE):
-    
+
     return write_json(path, [basket.to_dict() for basket in baskets])

@@ -1,13 +1,9 @@
-"""Smart Basket screen: build a shopping basket, find the cheapest bazaar for
-each item, and rank the bazaars by what the whole basket costs there."""
-
 from tkinter import messagebox, ttk
 
 import analysis
 from models import Basket
 from validation import validate_quantity
 
-# Dictionaries: table column -> width in pixels
 LIST_COLUMNS = {"Item": 220, "Quantity": 90, "Unit": 70}
 ESTIMATE_COLUMNS = {
     "Item": 190,
@@ -19,7 +15,6 @@ ESTIMATE_COLUMNS = {
 
 
 def make_table(parent, columns, height):
-    """A table (Treeview). columns: dictionary column name -> width."""
     table = ttk.Treeview(parent, columns=tuple(columns), show="headings", height=height)
     for name, width in columns.items():
         table.heading(name, text=name)
@@ -29,7 +24,6 @@ def make_table(parent, columns, height):
 
 
 def fill_table(table, rows):
-    """Replace all the rows of a table."""
     for row in table.get_children():
         table.delete(row)
     for values in rows:
@@ -38,9 +32,9 @@ def fill_table(table, rows):
 
 class BasketTab:
     def __init__(self, app, notebook):
-        self.app = app  # the main app: gives us app.manager and app.say()
+        self.app = app
         self.basket = Basket("My basket")
-        self.units = {}  # dictionary: item -> unit, filled from the price records
+        self.units = {}
         self.frame = ttk.Frame(notebook, padding=14)
         notebook.add(self.frame, text="Smart Basket")
         self.build_form()
@@ -55,7 +49,6 @@ class BasketTab:
         )
         self.result_label.pack(anchor="w", pady=(10, 0))
 
-    # ---------- building the screen ----------
 
     def build_form(self):
         form = ttk.LabelFrame(self.frame, text="Add to basket", padding=12)
@@ -63,7 +56,6 @@ class BasketTab:
 
         ttk.Label(form, text="Item").grid(row=0, column=0, sticky="w")
         ttk.Label(form, text="Quantity").grid(row=0, column=1, sticky="w", padx=8)
-        # postcommand reloads the item list every time it opens, so new items appear
         self.item_box = ttk.Combobox(
             form, state="readonly", width=24, postcommand=self.refresh_items
         )
@@ -92,11 +84,10 @@ class BasketTab:
 
     def refresh_items(self):
         records = self.app.manager.records
-        items = {record.item for record in records}  # set: each item only once
+        items = {record.item for record in records}
         self.units = {record.item: record.unit for record in records}
         self.item_box["values"] = sorted(items)
 
-    # ---------- the basket ----------
 
     def show_basket(self):
         rows = []
@@ -116,7 +107,7 @@ class BasketTab:
         except ValueError as error:
             messagebox.showerror("Please check", str(error))
             return
-        self.basket.add_item(item, quantity)  # adds to the quantity if already listed
+        self.basket.add_item(item, quantity)
         self.show_basket()
         total = self.basket.items[item]
         self.app.say(f"Basket now has {total:g} {self.units.get(item, '')} of {item}.")
@@ -136,7 +127,6 @@ class BasketTab:
         self.show_basket()
         self.app.say("Basket cleared.")
 
-    # ---------- the estimate ----------
 
     def estimate(self):
         if not self.basket.items:
@@ -163,7 +153,6 @@ class BasketTab:
             f"so you save {result['saving']:,.2f} Tk)."
         ]
 
-        # Most people buy everything in one place, so rank the bazaars by the whole basket
         market_totals = analysis.cost_by_market(self.app.manager, self.basket.items)
         if market_totals:
             lines.append("Whole basket at one bazaar, cheapest first:")

@@ -1,5 +1,3 @@
-"""Main Tkinter application for BazaarDor."""
-
 import tkinter as tk
 from tkinter import ttk
 
@@ -16,23 +14,18 @@ class BazaarDorApp:
         self.root.title("BazaarDor - Smart Basket")
         self.root.geometry("1150x720")
         self.root.minsize(850, 560)
-        apply_theme(self.root)  # colours for every screen (theme.py)
+        apply_theme(self.root)
 
-        # Load price records from the shared JSON database, then create Arif's manager.
         records = load_records("data/prices.json")
         self.manager = BazaarManager(records)
 
-        # Shared notebook for the application's screens.
         self.tabs = ttk.Notebook(self.root)
         self.tabs.pack(fill="both", expand=True, padx=10, pady=(10, 4))
 
-        # Member 3: price-record form and table.
         self.records_tab = RecordsTab(self, self.tabs)
 
-        # Member 4: Smart Basket screen. BasketTab uses app.manager and app.say().
         self.basket_tab = BasketTab(self, self.tabs)
 
-        # Shared status message area used by both tabs.
         self.status_label = ttk.Label(
             self.root,
             text="BazaarDor is ready.",
@@ -43,7 +36,6 @@ class BazaarDorApp:
         self.status_label.pack(side="bottom", fill="x")
 
     def say(self, text):
-        """Show a short status message at the bottom of the main window."""
         self.status_label.config(text=str(text))
 
 

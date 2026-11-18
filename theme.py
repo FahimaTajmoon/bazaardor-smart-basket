@@ -1,21 +1,17 @@
-"""Colours for the BazaarDor window: one ttk style setup shared by every screen."""
-
 from tkinter import ttk
 
-# All colours in one dictionary, so a colour is changed in one place
 COLORS = {
-    "background": "#F3F7F1",  # light leafy green page
+    "background": "#F3F7F1",
     "text": "#1E2B22",
-    "green": "#1F7A45",  # buttons, headings, selected tab
-    "dark_green": "#145A32",  # button and heading when the mouse is on it
-    "turmeric": "#F4B400",  # selected table row
-    "soft_yellow": "#FFF1C2",  # tabs that are not selected
+    "green": "#1F7A45",
+    "dark_green": "#145A32",
+    "turmeric": "#F4B400",
+    "soft_yellow": "#FFF1C2",
     "white": "#FFFFFF",
 }
 
 
 def apply_theme(root):
-    """Use the 'clam' theme (it accepts colours on every platform) and colour each widget type."""
     c = COLORS
     style = ttk.Style(root)
     style.theme_use("clam")
@@ -46,7 +42,6 @@ def apply_theme(root):
     style.configure("TEntry", fieldbackground=c["white"], foreground=c["text"], insertcolor=c["text"])
     style.configure("TCombobox", fieldbackground=c["white"], foreground=c["text"], arrowcolor=c["green"])
     style.map("TCombobox", fieldbackground=[("readonly", c["white"])], foreground=[("readonly", c["text"])])
-    # the drop-down list of a Combobox is a plain Tk listbox, coloured through the option database
     root.option_add("*TCombobox*Listbox.background", c["white"])
     root.option_add("*TCombobox*Listbox.foreground", c["text"])
     root.option_add("*TCombobox*Listbox.selectBackground", c["turmeric"])

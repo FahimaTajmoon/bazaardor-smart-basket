@@ -1,5 +1,3 @@
-# Manage BazaarDor price records.
-
 from models import PriceRecord, UNITS, CATEGORIES
 from validation import (
     validate_text,
@@ -10,19 +8,16 @@ from validation import (
 )
 
 
-# In-memory price record manager.
 class BazaarManager:
 
     def __init__(self, records=None):
         self.records = list(records) if records is not None else []
 
-    # Return records matching item (case-insensitive).
     def records_for(self, item):
         item_key = str(item).strip().casefold()
         return [record for record in self.records
                 if record.item.strip().casefold() == item_key]
 
-    # Validate unique ID and add a PriceRecord.
     def add_record(self, record):
         if not isinstance(record, PriceRecord):
             raise TypeError("record must be a PriceRecord")
@@ -30,7 +25,6 @@ class BazaarManager:
         self.records.append(record)
         return record
 
-    # Search records by partial item or bazaar.
     def search_records(self, keyword):
         keyword = str(keyword).strip().casefold()
         if not keyword:
@@ -39,7 +33,6 @@ class BazaarManager:
                 if keyword in record.item.casefold()
                 or keyword in record.bazaar.casefold()]
 
-    # Update fields on a matching record, or return None.
     def update_record(self, record_id, **changes):
         record = self.get_record(record_id)
         if record is None:
@@ -66,14 +59,12 @@ class BazaarManager:
             setattr(record, field, value)
         return record
 
-    # Delete and return matching record, or None.
     def delete_record(self, record_id):
         record = self.get_record(record_id)
         if record is not None:
             self.records.remove(record)
         return record
 
-    # Find record by ID (case-insensitive).
     def get_record(self, record_id):
         wanted = str(record_id).strip().casefold()
         return next((record for record in self.records
@@ -81,4 +72,3 @@ class BazaarManager:
 
     def _used_ids(self):
         return {record.record_id.upper() for record in self.records}
-    
