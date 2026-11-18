@@ -1,12 +1,8 @@
-# Basket price analysis per market.
-
 import numpy as np
 
 
-# Return latest valid (bazaar, price) pairs for an item.
 def _item_prices(manager, item):
     records = manager.records_for(item)
-    # Keep newest record per bazaar.
     latest = {}
     for record in records:
         market = record.bazaar
@@ -17,7 +13,6 @@ def _item_prices(manager, item):
             if np.isfinite(record.price) and record.price > 0]
 
 
-# Return cheapest-per-item basket estimate and totals.
 def shopping_estimate(manager, items):
     lines = []
     missing = []
@@ -59,7 +54,6 @@ def shopping_estimate(manager, items):
     }
 
 
-# Return total basket cost for bazaars carrying all items.
 def cost_by_market(manager, items):
     if not items:
         return {}

@@ -1,5 +1,3 @@
-"""Tkinter GUI for adding, searching, updating and deleting bazaar price records."""
-
 import tkinter as tk
 from tkinter import messagebox, ttk
 

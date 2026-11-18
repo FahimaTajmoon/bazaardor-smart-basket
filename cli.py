@@ -1,4 +1,3 @@
-
 from datetime import date
 
 from models import PriceRecord, UNITS, CATEGORIES
@@ -18,7 +17,6 @@ MENU = (
 
 
 def ask(prompt, validator, *extra):
-    """Keep asking until the input passes the given validation function."""
     while True:
         try:
             return validator(input(prompt), *extra)
@@ -27,7 +25,6 @@ def ask(prompt, validator, *extra):
 
 
 def read_number(prompt, lowest, highest):
-    """Keep asking until the user types a whole number in the given range."""
     while True:
         try:
             number = int(input(prompt))
@@ -40,7 +37,6 @@ def read_number(prompt, lowest, highest):
 
 
 def choose_option(title, options):
-    """Show the options of a tuple as a numbered list and return the choice."""
     print(f"  {title}:")
     for number, option in enumerate(options, start=1):
         print(f"    {number}. {option}")
@@ -48,14 +44,12 @@ def choose_option(title, options):
 
 
 def date_or_today(value):
-    """An empty answer means today's date."""
     if value.strip() == "":
         return date.today().isoformat()
     return validate_date(value)
 
 
 def find_record(records, record_id):
-    """Return the record with this ID, or None if it does not exist."""
     for record in records:
         if record.record_id == record_id.strip().upper():
             return record
@@ -63,7 +57,6 @@ def find_record(records, record_id):
 
 
 def show_table(records):
-    """Print records as a simple table."""
     if not records:
         print("  No records to show.")
         return
@@ -78,7 +71,6 @@ def show_table(records):
 
 
 def save_changes(records):
-    """Save after every change so no data is lost."""
     if save_records(records):
         print("  Saved.")
     else:
@@ -160,7 +152,7 @@ def price_summary(records):
 
 def main():
     records = load_records()
-    used_ids = {record.record_id for record in records}  
+    used_ids = {record.record_id for record in records}
     print("=" * 40)
     print("  BazaarDor: Local Market Price Book")
     print("=" * 40)
