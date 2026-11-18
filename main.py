@@ -7,6 +7,7 @@ from manager import BazaarManager
 from storage import load_records
 from gui_records import RecordsTab
 from gui_basket import BasketTab
+from theme import apply_theme
 
 
 class BazaarDorApp:
@@ -15,6 +16,7 @@ class BazaarDorApp:
         self.root.title("BazaarDor - Smart Basket")
         self.root.geometry("1150x720")
         self.root.minsize(850, 560)
+        apply_theme(self.root)  # colours for every screen (theme.py)
 
         # Load price records from the shared JSON database, then create Arif's manager.
         records = load_records("data/prices.json")
